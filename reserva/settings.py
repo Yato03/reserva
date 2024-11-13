@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ml6%9ch+i(6hy1u-2^w1+mfz5bd%(0ej&+wx1utvlga0_5$!^u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['reserva-woih.onrender.com']
+ALLOWED_HOSTS = ['reserva-woih.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'espaciocomun'
+    'espaciocomun',
+    'usuario'
 ]
 
 MIDDLEWARE = [
