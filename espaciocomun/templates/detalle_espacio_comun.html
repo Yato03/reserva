@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{ espacio.nombre }}</h1>
+    <p><strong>Descripción:</strong> {{ espacio.descripcion }}</p>
+    <p><strong>Capacidad:</strong> {{ espacio.capacidad }}</p>
+    <p><strong>Dirección:</strong> {{ espacio.direccion }}</p>
+
+    <h2>Imágenes</h2>
+    {% if imagenes %}
+        <ul>
+            {% for imagen in imagenes %}
+                <li>
+                    <img src="{{ imagen.url }}" alt="{{ imagen.texto_alternativo }}" width="300">
+                    <p>{{ imagen.texto_alternativo }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay imágenes disponibles para este espacio.</p>
+    {% endif %}
+
+    <a href="{% url 'listar_espacios_comunes' %}">Volver al listado</a>
+{% endblock %}

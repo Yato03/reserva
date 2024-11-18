@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Iniciar Sesión</h1>
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <label for="username">DNI:</label>
+    <input type="text" id="username" name="username" placeholder="DNI" required>
+    <br>
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" placeholder="Contraseña" required>
+    <br>
+    <button type="submit">Iniciar Sesión</button>
+</form>
+{% endblock %}

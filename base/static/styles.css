@@ -1,0 +1,124 @@
+body{
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+}
+
+form input[type="text"], form input[type="password"] {
+    width: 40%;
+    padding: 5px;
+}
+
+form input[type="submit"] {
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+}
+
+form input[type="submit"]:hover {
+    background-color: #444;
+}
+
+from div {
+    display: block;
+    margin-top: 10px;
+}
+
+.errorlist {
+    list-style-type: none;
+    color: red;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.post {
+    background-color: white;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.comment {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.user{
+    max-width: 300px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+}
+
+.user form{
+    margin: 0;
+}
+
+.user form .follow {
+    background-color: #333;
+}
+
+/* Hover effect */
+.user form input:hover {
+    background-color: #bcbcbc;
+    color:black;
+}
+
+.user form .unfollow {
+    background-color: #fd1b1b;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+}

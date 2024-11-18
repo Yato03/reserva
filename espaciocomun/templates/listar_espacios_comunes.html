@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Espacios Comunes</h1>
+    <ul>
+        {% for espacio in espacios %}
+            <li>
+                <h2>{{ espacio.nombre }}</h2>
+                <p>{{ espacio.descripcion|truncatewords:20 }}</p>
+                <a href="{% url 'detalle_espacio_comun' espacio.pk %}">Ver detalles</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

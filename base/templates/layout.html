@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserv@</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><span>Reserv@</span></li>
+            <li><a href="/">Home</a></li>
+            {% if user.is_superuser %}
+                <li><a href="/admin/">Panel de administración</a></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <li><a href="/usuario/perfil">Account</a></li>
+                <li><a href="/usuario/logout">Cerrar sesión</a></li>
+            {% else %}
+                <li><a href="/usuario/login">Inicio de sesión</a></li>
+                <li><a href="/usuario/registro">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
