@@ -10,24 +10,32 @@
 </head>
 <body>
     <nav>
+        <a class="image-container" href="https://www.villanuevadelascruces.es" target="_blank">
+            <img src="{% static 'images/logo-vvcruces.png' %}" alt="Excmo. Ayuntamiento de Villanueva de las Cruces">
+        </a>
+
+        <a class="reserva-logo-container" href="/">
+            <img class="reserva-logo" src="{% static 'images/reserva-logo.png' %}" alt="Reserv@">
+        </a>
+
         <ul>
-            <li><span>Reserv@</span></li>
+
+
             <li><a href="/">Home</a></li>
             {% if user.is_superuser %}
-                <li><a href="/admin/">Panel de administración</a></li>
+                <li><a class="text" href="/admin/">Panel de administración</a></li>
             {% endif %}
             {% if user.is_authenticated %}
-                <li><a href="/usuario/perfil">Account</a></li>
-                <li><a href="/usuario/logout">Cerrar sesión</a></li>
-            {% else %}
-                <li><a href="/usuario/login">Inicio de sesión</a></li>
-                <li><a href="/usuario/registro">Register</a></li>
+                <li><a class="text" href="/usuario/perfil">Account</a></li>
+                <li><a class="text" href="/usuario/logout">Cerrar sesión</a></li>
             {% endif %}
         </ul>
     </nav>
     <main>
-        {% block content %}
-        {% endblock %}
+        <div class="content-wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
     </main>
 </body>
 </html>
