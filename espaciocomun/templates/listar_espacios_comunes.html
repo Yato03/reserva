@@ -1,13 +1,19 @@
 {% extends "layout.html" %}
+
 {% block content %}
 <h1>Espacios Comunes</h1>
-    <ul>
-        {% for espacio in espacios %}
-            <li>
-                <h2>{{ espacio.nombre }}</h2>
-                <p>{{ espacio.descripcion|truncatewords:20 }}</p>
-                <a href="{% url 'detalle_espacio_comun' espacio.pk %}">Ver detalles</a>
-            </li>
-        {% endfor %}
-    </ul>
+<div class="espacios-comunes">
+    {% for espacio in espacios %}
+        <a href="{% url 'detalle_espacio_comun' espacio.pk %}" class="espacio">
+            {% if espacio.imagenes and espacio.imagenes|length > 0 %}
+                <img src="{{ espacio.imagenes.0.url }}" alt="{{ espacio.nombre }}">
+            {% else %}
+                {% load static %}
+                <img src="{% static 'images/default.jpg' %}" alt="Imagen no disponible">
+            {% endif %}
+            <h3>{{ espacio.nombre }}</h3>
+            <p>{{ espacio.descripcion|truncatewords:20 }}</p>
+        </a>
+    {% endfor %}
+</div>
 {% endblock %}
