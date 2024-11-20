@@ -5,8 +5,8 @@
 <div class="espacios-comunes">
     {% for espacio in espacios %}
         <a href="{% url 'detalle_espacio_comun' espacio.pk %}" class="espacio">
-            {% if espacio.imagenes and espacio.imagenes|length > 0 %}
-                <img src="{{ espacio.imagenes.0.url }}" alt="{{ espacio.nombre }}">
+            {% if espacio.imagenes.all %}
+                <img src="{{ espacio.imagenes.all.0.url }}" alt="{{ espacio.nombre }}">
             {% else %}
                 {% load static %}
                 <img src="{% static 'images/default.jpg' %}" alt="Imagen no disponible">

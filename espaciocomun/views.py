@@ -10,7 +10,7 @@ def listar_espacios_comunes(request):
     """
     Vista para listar todos los espacios comunes.
     """
-    espacios = EspacioComun.objects.all()
+    espacios = EspacioComun.objects.prefetch_related('imagenes')
     return render(request, 'listar_espacios_comunes.html', {'espacios': espacios})
 
 @login_required
@@ -19,5 +19,5 @@ def detalle_espacio_comun(request, pk):
     Vista para mostrar el detalle de un espacio común.
     """
     espacio = get_object_or_404(EspacioComun, pk=pk)
-    imagenes = espacio.imagenes.all()  # Accede a las imágenes relacionadas
+    imagenes = espacio.imagenes.all() 
     return render(request, 'detalle_espacio_comun.html', {'espacio': espacio, 'imagenes': imagenes})
