@@ -164,3 +164,7 @@ from div {
     color: white;
     padding: 5px 10px;
 }
+
+.rojo {
+    background-color: #fd1b1b;
+}

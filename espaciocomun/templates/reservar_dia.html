@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Elija la hora a la que desea realizar la reserva:</h1>
+    <h2>{{ fecha }}</h2>
+
+    <div class="container">
+        {% for i,j in horas_rango %}
+            {% if i in horas_ocupadas %}
+            <div class="rojo">
+                <a>{{ i }} - {{ j }}</a>
+            </div>
+        {% else %}
+            <div class="verde">
+                <a href="{% url 'reservar_hora' espacio.id mes anio dia i %}">{{ i }} - {{ j }}</a>
+            </div>
+        {% endif %}
+        {% empty %}
+            <p>No hay horarios disponibles para esta fecha.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

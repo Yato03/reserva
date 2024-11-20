@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Mis reservas</h1>
+    <ul>
+        {% for reserva in reservas %}
+            <li style="background:gray;">
+                <h2>{{ reserva.espacio.nombre }}</h2>
+                <p><strong>Fecha:</strong> {{ reserva.fecha_inicio }}</p>
+                <p><strong>Hora de inicio:</strong> {{ reserva.fecha_inicio }}</p>
+                <p><strong>Hora de fin:</strong> {{ reserva.fecha_fin }}</p>
+                <p><strong>Estado:</strong> {{ reserva.estado }}</p>
+                {% if reserva.estado == 'POR_CONFIRMAR' %}
+                    <a href="{% url 'cancelar_reserva' reserva.id %}">Cancelar</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

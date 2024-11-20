@@ -4,6 +4,8 @@
     <p><strong>Descripción:</strong> {{ espacio.descripcion }}</p>
     <p><strong>Capacidad:</strong> {{ espacio.capacidad }}</p>
     <p><strong>Dirección:</strong> {{ espacio.direccion }}</p>
+    
+    <a href="{% url 'reserva_espacio_comun' espacio.id month year %}">Reservar espacio</a>
 
     <h2>Imágenes</h2>
     {% if imagenes %}
