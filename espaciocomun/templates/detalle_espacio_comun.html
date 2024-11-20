@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>{{ espacio.nombre }}</h1>
+
 <div class="detalle-espacio">
     <div class="detalle-izquierda">
         <p><strong>Descripción:</strong> {{ espacio.descripcion }}</p>
@@ -27,12 +28,13 @@
         {% endif %}
     </div>
 </div>
-<a href="{% url 'listar_espacios_comunes' %}">    
+<a href="{% url 'reserva_espacio_comun' espacio.id month year %}">    
     <button class="button login">Consultar disponibilidad</button>
 </a>
 <a href="{% url 'listar_espacios_comunes' %}">    
     <button class="button register">Volver al listado</button>
 </a>
+
 
 <script>
     var imagenes = [

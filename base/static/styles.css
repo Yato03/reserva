@@ -225,6 +225,10 @@ from div {
     padding: 5px 10px;
 }
 
+
+.rojo {
+    background-color: #fd1b1b;
+
 .button {
     background-color: #00BF1D;
     border: none;
@@ -388,4 +392,5 @@ button.next {
         width: 100%;
         max-width: 300px;
     }
+
 }

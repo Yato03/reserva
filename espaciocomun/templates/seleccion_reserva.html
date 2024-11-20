@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Calendario - {{ mes }}/{{ anio }}</h1>
+<table>
+    <tr>
+        <th>Lunes</th>
+        <th>Martes</th>
+        <th>Miércoles</th>
+        <th>Jueves</th>
+        <th>Viernes</th>
+        <th>Sábado</th>
+        <th>Domingo</th>
+    </tr>
+    <tr>
+    {% for dia in calendario_dias %}
+        {% if dia.weekday == 0 and not forloop.first %}
+            </tr><tr> <!-- Nueva fila al iniciar una nueva semana -->
+        {% endif %}
+        {% if forloop.first and dia.weekday != 0 %}
+            <!-- Agregar celdas vacías al principio si el primer día no es lunes -->
+            {% for _ in 0|add:dia.weekday %}
+                <td class="blanco"></td>
+            {% endfor %}
+        {% endif %}
+        <td class="{{ dia.color }}">
+            <a href="{% url 'reservar_dia' espacio.id mes anio dia.fecha.day %}">{{ dia.fecha.day }}</a>
+        </td>
+    {% endfor %}
+    </tr>
+</table>
+<a href="{% url 'reserva_espacio_comun' espacio.id mes_anterior anio_anterior %}">&lt;&lt; Mes anterior</a>
+<a href="{% url 'reserva_espacio_comun' espacio.id mes_siguiente anio_siguiente %}">Mes siguiente &gt;&gt;</a>
+{% endblock %}
