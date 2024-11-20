@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Welcome to the home page</h1>
-<p>This is the home page of the application.</p>
+<h1>ACCESO A LA PLATAFORMA</h1>
+<h2>Para acceder a la aplicación, por favor inicie sesión si ya tiene cuenta o cree una cuenta nueva en su defecto.</h2>
+<a href="usuario/login">
+    <button class="button login">Iniciar sesión</button>
+</a>
+<a href="usuario/registro">
+    <button class="button register">Crear cuenta</button>
+</a>
 {% endblock %}
