@@ -20,14 +20,50 @@
 
         <ul>
 
-
-            <li><a href="/">Home</a></li>
+            {% if not user.is_authenticated %}
+            <a class="blank-filler"></a>
+            <li>
+                <a class="icon-container" href="/">
+                    <img src="{% static 'images/home.svg' %}">
+                    <p class="icon-text">Inicio</p>
+                </a>
+            </li>
+            {% endif %}
             {% if user.is_superuser %}
                 <li><a class="text" href="/admin/">Panel de administración</a></li>
             {% endif %}
             {% if user.is_authenticated %}
-                <li><a class="text" href="/usuario/perfil">Account</a></li>
-                <li><a class="text" href="/usuario/logout">Cerrar sesión</a></li>
+                <li>
+                    <a class="icon-container" href="/">
+                        <img class="icon" src="{% static 'images/espacios.svg' %}">
+                        <p class="icon-text">Espacios</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="icon-container" href="/">
+                        <img class="icon" src="{% static 'images/reservas.svg' %}">
+                        <p class="icon-text">Reservas</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="icon-container" href="/">
+                        <img class="icon" src="{% static 'images/notifications.svg' %}">
+                        <p class="icon-text">Notificaciones</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="icon-container" href="/usuario/perfil">
+                        <img class="icon" src="{% static 'images/profile.svg' %}">
+                        <p class="icon-text">Mis datos</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="icon-container" href="/usuario/logout">
+                        <img class="icon" src="{% static 'images/logout.svg' %}">
+                        <p class="icon-text">Cerrar sesión</p>
+                    </a>
+                </li>
+
             {% endif %}
         </ul>
     </nav>

@@ -1,25 +1,56 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>{{ espacio.nombre }}</h1>
-    <p><strong>Descripción:</strong> {{ espacio.descripcion }}</p>
-    <p><strong>Capacidad:</strong> {{ espacio.capacidad }}</p>
-    <p><strong>Dirección:</strong> {{ espacio.direccion }}</p>
-    
-    <a href="{% url 'reserva_espacio_comun' espacio.id month year %}">Reservar espacio</a>
 
-    <h2>Imágenes</h2>
-    {% if imagenes %}
-        <ul>
-            {% for imagen in imagenes %}
-                <li>
-                    <img src="{{ imagen.url }}" alt="{{ imagen.texto_alternativo }}" width="300">
-                    <p>{{ imagen.texto_alternativo }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay imágenes disponibles para este espacio.</p>
-    {% endif %}
+<div class="detalle-espacio">
+    <div class="detalle-izquierda">
+        <p><strong>Descripción:</strong> {{ espacio.descripcion }}</p>
+        <p><strong>Capacidad:</strong> 
+            {{ espacio.capacidad }} 
+            {% if espacio.capacidad > 1 %}
+            personas
+            {% else %}
+            persona
+            {% endif %}
+            </p>
+        <p><strong>Dirección:</strong> {{ espacio.direccion }}</p>
+    </div>
+    <div class="detalle-derecha">
+        {% if imagenes %}
+            <div class="imagen-container">
+                <button class="prev" onclick="cambiarImagen(-1)">&#10094;</button>
+                <img id="imagen-actual" src="{{ imagenes.0.url }}" alt="{{ imagenes.0.texto_alternativo }}" width="300">
+                <button class="next" onclick="cambiarImagen(1)">&#10095;</button>
+            </div>
+            <p id="texto-alternativo">{{ imagenes.0.texto_alternativo }}</p>
+        {% else %}
+            <p>No hay imágenes disponibles para este espacio.</p>
+        {% endif %}
+    </div>
+</div>
+<a href="{% url 'reserva_espacio_comun' espacio.id month year %}">    
+    <button class="button login">Consultar disponibilidad</button>
+</a>
+<a href="{% url 'listar_espacios_comunes' %}">    
+    <button class="button register">Volver al listado</button>
+</a>
 
-    <a href="{% url 'listar_espacios_comunes' %}">Volver al listado</a>
+
+<script>
+    var imagenes = [
+        {% for imagen in imagenes %}
+            { url: "{{ imagen.url|escapejs }}", texto: "{{ imagen.texto_alternativo|escapejs }}" }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    var indiceActual = 0;
+
+    function cambiarImagen(direccion) {
+        indiceActual = (indiceActual + direccion + imagenes.length) % imagenes.length;
+        document.getElementById('imagen-actual').src = imagenes[indiceActual].url;
+        document.getElementById('imagen-actual').alt = imagenes[indiceActual].texto;
+        document.getElementById('texto-alternativo').innerText = imagenes[indiceActual].texto;
+    }
+</script>
+
 {% endblock %}
+
