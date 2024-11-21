@@ -23,7 +23,9 @@ def detalle_espacio_comun(request, pk):
     """
     espacio = get_object_or_404(EspacioComun, pk=pk)
     imagenes = espacio.imagenes.all() 
-    return render(request, 'detalle_espacio_comun.html', {'espacio': espacio, 'imagenes': imagenes})
+    month = datetime.now().month
+    year = datetime.now().year
+    return render(request, 'detalle_espacio_comun.html', {'espacio': espacio, 'imagenes': imagenes, 'month': month, 'year': year})
 
 @login_required
 def reserva_espacio_comun(request, pk, month, year):
@@ -32,7 +34,7 @@ def reserva_espacio_comun(request, pk, month, year):
     """
     # Obtener los días con colores desde la base de datos
     reservas = Reserva.objects.all()
-    fechas_colores = {dia.fecha_inicio.date(): 'rojo' for dia in reservas}
+    fechas_colores = {dia.fecha_inicio.date(): 'rojo' for dia in reservas if dia.estado != 'CANCELADA'}
 
     # Obtener el mes y año actual
     mes = month
@@ -92,7 +94,7 @@ def reservar_dia(request, pk, month, year, day):
     # Obtener reservas de ese dia
     reservas = Reserva.objects.all()
 
-    reservas = [reserva for reserva in reservas if reserva.fecha_inicio.date() == datetime(anio, mes, dia).date()]
+    reservas = [reserva for reserva in reservas if reserva.fecha_inicio.date() == datetime(anio, mes, dia).date() and reserva.estado != 'CANCELADA']
 
     horas_ocupadas = {reserva.fecha_inicio.hour for reserva in reservas}
     horas_rango = [(hora, hora+1) for hora in range(9, 21)]
