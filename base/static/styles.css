@@ -141,27 +141,50 @@ nav img {
 
 form {
     margin-top: 20px;
+    width:35%;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    form {
+        width: 80%;
+    }
 }
 
 form label {
     display: block;
     margin-top: 10px;
+    font-weight: bold;
+    color: #333;
 }
 
 form input[type="text"], form input[type="password"] {
-    width: 40%;
-    padding: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 2px solid #b1b1b1b1;
+    border-radius: 12px;
+    box-sizing: border-box;
 }
 
-form input[type="submit"] {
-    background-color: #333;
+form .button-container {
+    text-align: center;
+}
+
+form button[type="submit"] {
+    background-color: #00BF1D;
     border: none;
     color: white;
-    padding: 5px 10px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: 60px;
+    width: 160px;
 }
 
-form input[type="submit"]:hover {
-    background-color: #444;
+form button[type="submit"]:hover {
+    background-color: #007e13;
 }
 
 from div {
@@ -176,6 +199,35 @@ from div {
     padding: 0;
     margin-bottom: 10px;
 }
+
+.register-container {
+    text-align: center;
+    margin-top: 20px;
+    width: 80%;
+}
+
+.register-container h2 {
+    margin-bottom: 10px;
+}
+
+.register-container button {
+    background-color: #0091ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: 60px;
+    width: 160px;
+}
+
+.register-container button:hover {
+    background-color: #0056b3;
+}
+
+
+
 
 .post {
     background-color: white;
@@ -254,11 +306,48 @@ from div {
 }
 
 .button.register {
-    background-color: #00AAFF;
+    background-color: #0091ff;
 }
 
 .button.register:hover {
-    background-color: #0078b4;
+    background-color: #0056b3;
+}
+
+.button.reserva {
+    height: 100px;
+    width: 240px;
+    background-color: #00BF1D;
+    font-size: 2rem;
+}
+
+.button.reserva:hover {
+    background-color: #007e13;
+}
+
+.button.volver {
+    height: 100px;
+    width: 240px;
+    background-color: #0091ff;
+    font-size: 2rem;
+}
+
+.button.volver:hover {
+    background-color: #0056b3;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 50%;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .botones {
+        width: 80%;
+        flex-direction: column;
+    }
 }
 
 h1 {

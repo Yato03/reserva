@@ -27,12 +27,14 @@
         {% endif %}
     </div>
 </div>
-<a href="{% url 'listar_espacios_comunes' %}">    
-    <button class="button login">Consultar disponibilidad</button>
-</a>
-<a href="{% url 'listar_espacios_comunes' %}">    
-    <button class="button register">Volver al listado</button>
-</a>
+<div class="botones">
+    <a href="{% url 'listar_espacios_comunes' %}" style="margin-right: 20px;" >
+        <button class="button reserva">Reservar</button>
+    </a>
+    <a href="{% url 'listar_espacios_comunes' %}">
+        <button class="button volver">Volver al listado</button>
+    </a>
+</div>
 
 <script>
     var imagenes = [
