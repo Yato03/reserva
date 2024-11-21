@@ -15,6 +15,10 @@ main {
     justify-content: center;
 }
 
+table, th, td {
+    border: 1px solid black;
+}
+
 .content-wrapper {
     display: flex;
     flex-direction: column;

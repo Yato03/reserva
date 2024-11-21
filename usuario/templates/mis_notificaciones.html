@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Mis Notificaciones</h1>
+
+{% if usuario %}
+    <h2>Hola, {{ usuario.user.username }}</h2>
+    {% if notificaciones %}
+        <ul>
+            {% for notificacion in notificaciones %}
+                <li>{{ notificacion.mensaje }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes notificaciones.</p>
+    {% endif %}
+{% else %}
+    <p>No se encontró el perfil del usuario.</p>
+{% endif %}
+
+{% endblock %}
