@@ -15,6 +15,10 @@ main {
     justify-content: center;
 }
 
+table, th, td {
+    border: 1px solid black;
+}
+
 .content-wrapper {
     display: flex;
     flex-direction: column;
@@ -229,6 +233,11 @@ from div {
 .rojo {
     background-color: #fd1b1b;
 }
+
+.naranja {
+    background-color: #ff8c00;
+}
+
 .button {
     background-color: #00BF1D;
     border: none;

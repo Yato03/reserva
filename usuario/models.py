@@ -37,3 +37,9 @@ class Usuario(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.get_rol_display()}"
+
+class Notificacion(models.Model):
+    titulo = models.CharField(max_length=100)
+    mensaje = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)

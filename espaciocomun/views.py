@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import EspacioComun
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import datetime
 import calendar
 from booking.models import Reserva
 from django.http import Http404
+from usuario.models import Notificacion, Usuario
+from booking.views import crear_notificacion
+from usuario.views import es_usuario
 
 # Create your views here.
 
@@ -25,16 +28,37 @@ def detalle_espacio_comun(request, pk):
     imagenes = espacio.imagenes.all() 
     month = datetime.now().month
     year = datetime.now().year
-    return render(request, 'detalle_espacio_comun.html', {'espacio': espacio, 'imagenes': imagenes, 'month': month, 'year': year})
+
+    return render(request, 'detalle_espacio_comun.html', {'espacio': espacio, 'imagenes': imagenes, 'month': month, 'year': year, 'es_usuario': es_usuario(request.user)})
+
 
 @login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
 def reserva_espacio_comun(request, pk, month, year):
     """
     Vista para reservar un espacio común.
     """
-    # Obtener los días con colores desde la base de datos
+
+    espacio_comun = EspacioComun.objects.get(pk=pk)
+
+    # Obtener los días con colores
     reservas = Reserva.objects.all()
-    fechas_colores = {dia.fecha_inicio.date(): 'rojo' for dia in reservas if dia.estado != 'CANCELADA'}
+
+    fechas_colores = dict()
+    for reserva in reservas:
+        if reserva.estado != 'CANCELADA' and reserva.espacio_comun == espacio_comun and reserva.estado != 'FINALIZADA':
+            fechas_colores[reserva.fecha_inicio.date()] = 'naranja'
+
+    # marcar en rojo los dias completos
+    for fecha in fechas_colores:
+        reservas_dia = [reserva for reserva in reservas if reserva.fecha_inicio.date() == fecha and reserva.estado != 'CANCELADA' and reserva.espacio_comun == espacio_comun and reserva.estado != 'FINALIZADA']
+        horas_ocupadas = []
+        for reserva in reservas_dia:
+            horas_ocupadas.extend(generador_de_horas(reserva.fecha_inicio, reserva.fecha_fin))
+
+        if len(horas_ocupadas) == 12:
+            fechas_colores[fecha] = 'rojo'
+
 
     # Obtener el mes y año actual
     mes = month
@@ -67,9 +91,22 @@ def reserva_espacio_comun(request, pk, month, year):
         'anio_anterior': anio - 1 if mes == 1 else anio,
         'mes_siguiente': mes + 1 if mes < 12 else 1,
         'anio_siguiente': anio + 1 if mes == 12 else anio,
-        'espacio': EspacioComun.objects.get(pk=pk)
+        'espacio': espacio_comun
     })
 
+def generador_de_horas(fecha_inicio,fecha_final):
+    """
+    Genera un rango de horas entre dos fechas.
+    """
+    horas = []
+    hora = fecha_inicio
+    while hora < fecha_final:
+        horas.append(hora.hour)
+        hora = hora.replace(hour=hora.hour+1)
+    return horas
+
+@login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
 def reservar_dia(request, pk, month, year, day):
     """
     Vista para reservar un día.
@@ -94,12 +131,18 @@ def reservar_dia(request, pk, month, year, day):
     # Obtener reservas de ese dia
     reservas = Reserva.objects.all()
 
-    reservas = [reserva for reserva in reservas if reserva.fecha_inicio.date() == datetime(anio, mes, dia).date() and reserva.estado != 'CANCELADA']
+    reservas = [reserva for reserva in reservas if reserva.fecha_inicio.date() == datetime(anio, mes, dia).date() and reserva.estado != 'CANCELADA' and reserva.espacio_comun == espacio and reserva.estado != 'FINALIZADA']
 
-    horas_ocupadas = {reserva.fecha_inicio.hour for reserva in reservas}
+    horas_ocupadas = []
+    
+    for reserva in reservas:
+        horas_ocupadas.extend(generador_de_horas(reserva.fecha_inicio, reserva.fecha_fin))
+
     horas_rango = [(hora, hora+1) for hora in range(9, 21)]
 
     fecha = f"{anio}-{mes}-{dia}"
+
+    dia_libre = len(horas_ocupadas) == 0
 
     return render(request, 'reservar_dia.html', {
         'dia': dia,
@@ -109,9 +152,12 @@ def reservar_dia(request, pk, month, year, day):
         'reservas': reservas,
         'espacio': espacio,
         'horas_ocupadas': horas_ocupadas,
-        'horas_rango': horas_rango
+        'horas_rango': horas_rango,
+        'dia_libre': dia_libre
     })
 
+@login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
 def reservar_hora(request, pk, month, year, day, hour):
     dia = day
     mes = month
@@ -142,6 +188,49 @@ def reservar_hora(request, pk, month, year, day, hour):
         'espacio': espacio,
     })
 
+@login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
+def reservar_dia_entero(request, pk):
+    # recibe por post dia, mes, anio
+
+    if request.method == 'POST':
+        dia = request.POST.get('dia')
+        mes = request.POST.get('mes')
+        anio = request.POST.get('anio')
+
+        # comprobar parametros
+
+        if not dia or not mes or not anio:
+            Http404("Faltan parámetros")
+
+        if int(dia) < 1 or int(dia) > 31:
+            Http404("Día no válido")
+
+        if int(mes) < 1 or int(mes) > 12:
+            Http404("Mes no válido")
+
+        fecha_inicio = datetime(int(anio), int(mes), int(dia), 9)
+        fecha_fin = fecha_inicio.replace(hour=21)
+
+        reserva = Reserva.objects.create(
+            usuario=request.user,
+            espacio_comun=EspacioComun.objects.get(pk=pk),
+            fecha_inicio=fecha_inicio,
+            fecha_fin=fecha_fin
+        )
+
+        # Crear notificación de reserva
+
+        espacio_comun = EspacioComun.objects.get(pk=pk)
+
+        usuario = Usuario.objects.get(user=request.user)
+
+        crear_notificacion(reserva, 'realizada')
+
+        return redirect('mis_reservas')
+
+@login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
 def reservar(request, pk):
     # recibe por post dia, mes, anio, hora
 
@@ -169,11 +258,20 @@ def reservar(request, pk):
         fecha_inicio = datetime(int(anio), int(mes), int(dia), int(hora))
         fecha_fin = fecha_inicio.replace(hour=fecha_inicio.hour + 1)
 
-        Reserva.objects.create(
+        reserva = Reserva.objects.create(
             usuario=request.user,
             espacio_comun=EspacioComun.objects.get(pk=pk),
             fecha_inicio=fecha_inicio,
             fecha_fin=fecha_fin
         )
+
+        # Crear notificación de reserva
+        
+        espacio_comun = EspacioComun.objects.get(pk=pk)
+
+        usuario = Usuario.objects.get(user=request.user)
+
+        crear_notificacion(reserva, 'realizada')
+
 
         return redirect('mis_reservas')

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Reservas Activas</h1>
+
+{% if reservas %}
+    <table>
+        <thead>
+            <tr>
+                <th>Espacio</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Fin</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.espacio_comun.nombre }}</td>
+                    <td>{{ reserva.fecha_inicio }}</td>
+                    <td>{{ reserva.fecha_fin }}</td>
+                    <td>{{ reserva.estado }}</td>
+                    <td>
+                        {% if reserva.estado == 'POR_CONFIRMAR' %}
+                            <a href="{% url 'confirmar_reserva' reserva.id %}">Confirmar</a>
+                            <a href="{% url 'cancelar_reserva' reserva.id %}">Cancelar</a>
+                        {% else %}
+                            <a href="{% url 'finalizar_reserva' reserva.id %}">Finalizar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay reservas activas.</p>
+{% endif %}
+
+{% endblock %}
