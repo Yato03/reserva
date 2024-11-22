@@ -4,6 +4,15 @@
     <h2>{{ fecha }}</h2>
 
     <div class="container">
+        {% if dia_libre %}
+            <form action="{% url 'reservar_dia_entero' espacio.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="dia" value="{{ dia }}">
+                <input type="hidden" name="mes" value="{{ mes }}">
+                <input type="hidden" name="anio" value="{{ anio }}">
+                <input type="submit" value="Reservar el día entero">
+            </form>
+        {% endif %}
         {% for i,j in horas_rango %}
             {% if i in horas_ocupadas %}
             <div class="rojo">
