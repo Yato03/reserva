@@ -9,11 +9,11 @@ from .models import Usuario, Notificacion
 
 def es_sereno(user):
     usuario = Usuario.objects.get(user=user)
-    return usuario.rol == 'SERENO'
+    return usuario.rol == 'SERENO' or usuario.rol == 'ADMINISTRADOR'
 
 def es_usuario(user):
     usuario = Usuario.objects.get(user=user)
-    return usuario.rol == 'USUARIO' 
+    return usuario.rol == 'USUARIO' or usuario.rol == 'ADMINISTRADOR'
 
 def registrar_usuario(request):
     if request.method == 'POST':

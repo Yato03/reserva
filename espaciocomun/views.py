@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import EspacioComun
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import datetime
 import calendar
 from booking.models import Reserva
 from django.http import Http404
 from usuario.models import Notificacion, Usuario
 from booking.views import crear_notificacion
+from usuario.views import es_usuario
 
 # Create your views here.
 
@@ -27,9 +28,11 @@ def detalle_espacio_comun(request, pk):
     imagenes = espacio.imagenes.all() 
     month = datetime.now().month
     year = datetime.now().year
-    return render(request, 'detalle_espacio_comun.html', {'espacio': espacio, 'imagenes': imagenes, 'month': month, 'year': year})
+
+    return render(request, 'detalle_espacio_comun.html', {'espacio': espacio, 'imagenes': imagenes, 'month': month, 'year': year, 'es_usuario': es_usuario(request.user)})
 
 @login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
 def reserva_espacio_comun(request, pk, month, year):
     """
     Vista para reservar un espacio común.
@@ -76,6 +79,7 @@ def reserva_espacio_comun(request, pk, month, year):
     })
 
 @login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
 def reservar_dia(request, pk, month, year, day):
     """
     Vista para reservar un día.
@@ -119,6 +123,7 @@ def reservar_dia(request, pk, month, year, day):
     })
 
 @login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
 def reservar_hora(request, pk, month, year, day, hour):
     dia = day
     mes = month
@@ -150,6 +155,7 @@ def reservar_hora(request, pk, month, year, day, hour):
     })
 
 @login_required
+@user_passes_test(es_usuario, login_url='reservas_activas')
 def reservar(request, pk):
     # recibe por post dia, mes, anio, hora
 

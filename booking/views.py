@@ -8,6 +8,7 @@ from usuario.views import es_sereno, es_usuario
 # Create your views here.
 
 @login_required
+@user_passes_test(es_sereno, login_url='home')
 def reservas_activas(request):
     # Obtener las reservas POR_CONFIRMAR y CONFIRMADA y ordenadas de forma descendente
     reservas = Reserva.objects.filter(estado__in=['POR_CONFIRMAR', 'CONFIRMADA']).order_by('-fecha_inicio')
