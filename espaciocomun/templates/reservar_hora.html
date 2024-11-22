@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1> Reservar hora </h1>
+
+<p> ¿Estás seguro de reservar la hora {{ hora }} del día {{ fecha }}? </p>
+
+<form action="{% url 'reservar' espacio.id %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="dia" value="{{ dia }}">
+    <input type="hidden" name="mes" value="{{ mes }}">
+    <input type="hidden" name="anio" value="{{ anio }}">
+    <input type="hidden" name="hora" value="{{ hora }}">
+    <input type="submit" value="Reservar">
+</form>
+
+{% endblock %}

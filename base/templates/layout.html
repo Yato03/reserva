@@ -34,19 +34,19 @@
             {% endif %}
             {% if user.is_authenticated %}
                 <li>
-                    <a class="icon-container" href="/">
+                    <a class="icon-container" href="{% url 'listar_espacios_comunes' %}">
                         <img class="icon" src="{% static 'images/espacios.svg' %}">
                         <p class="icon-text">Espacios</p>
                     </a>
                 </li>
                 <li>
-                    <a class="icon-container" href="/">
+                    <a class="icon-container" href="{% url 'mis_reservas' %}">
                         <img class="icon" src="{% static 'images/reservas.svg' %}">
                         <p class="icon-text">Reservas</p>
                     </a>
                 </li>
                 <li>
-                    <a class="icon-container" href="/">
+                    <a class="icon-container" href="{% url 'mis_notificaciones' %}">
                         <img class="icon" src="{% static 'images/notifications.svg' %}">
                         <p class="icon-text">Notificaciones</p>
                     </a>

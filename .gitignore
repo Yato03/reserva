@@ -1,2 +1,4 @@
 *.pyc
 __pycache__/**
+*.cpython-37.pyc
+reserva/__pycache__/settings.cpython-37.pyc
