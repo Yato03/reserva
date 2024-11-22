@@ -28,15 +28,18 @@
         {% endif %}
     </div>
 </div>
-{% if es_usuario %}
-    <a href="{% url 'reserva_espacio_comun' espacio.id month year %}">    
-        <button class="button login">Consultar disponibilidad</button>
-    </a>
-{% endif %}
 
-<a href="{% url 'listar_espacios_comunes' %}">    
-    <button class="button register">Volver al listado</button>
-</a>
+<div class="botones">
+  {% if es_usuario %}
+      <a href="{% url 'reserva_espacio_comun' espacio.id month year %}" style="margin-right: 20px;">    
+          <button class="button login">Consultar disponibilidad</button>
+      </a>
+  {% endif %}
+
+  <a href="{% url 'listar_espacios_comunes' %}">    
+      <button class="button register">Volver al listado</button>
+  </a>
+</div>
 
 
 <script>

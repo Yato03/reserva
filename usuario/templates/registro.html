@@ -3,6 +3,8 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Registrar</button>
+    <div class="button-container">
+        <button type="submit">Crear cuenta</button>
+    </div>
 </form>
 {% endblock %}
