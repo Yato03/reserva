@@ -1,30 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Elija la hora a la que desea realizar la reserva:</h1>
-    <h2>{{ fecha }}</h2>
+<h2>{{ fecha }}</h2>
 
-    <div class="container">
-        {% if dia_libre %}
-            <form action="{% url 'reservar_dia_entero' espacio.id %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="dia" value="{{ dia }}">
-                <input type="hidden" name="mes" value="{{ mes }}">
-                <input type="hidden" name="anio" value="{{ anio }}">
-                <input type="submit" value="Reservar el día entero">
-            </form>
-        {% endif %}
+<div class="leyenda">
+    <div class="leyenda-item">
+        <span class="color-box verde"></span> Disponible
+    </div>
+    <div class="leyenda-item">
+        <span class="color-box rojo"></span> Ocupado
+    </div>
+</div>
+
+<div class="container">
+    {% if dia_libre %}
+        <form action="{% url 'reservar_dia_entero' espacio.id %}" method="post" form action="{% url 'reservar_dia_entero' espacio.id %}" method="post" class="form-dia-entero">
+            {% csrf_token %}
+            <input type="hidden" name="dia" value="{{ dia }}">
+            <input type="hidden" name="mes" value="{{ mes }}">
+            <input type="hidden" name="anio" value="{{ anio }}">
+            <input type="submit" value="Reservar el día entero">
+        </form>
+    {% endif %}
+    <div class="horas-grid">
         {% for i,j in horas_rango %}
             {% if i in horas_ocupadas %}
-            <div class="rojo">
-                <a>{{ i }} - {{ j }}</a>
-            </div>
-        {% else %}
-            <div class="verde">
-                <a href="{% url 'reservar_hora' espacio.id mes anio dia i %}">{{ i }} - {{ j }}</a>
-            </div>
-        {% endif %}
+                <div class="rojo">
+                    <a>{{ i }}:00 - {{ j }}:00</a>
+                </div>
+            {% else %}
+                <div class="verde">
+                    <a href="{% url 'reservar_hora' espacio.id mes anio dia i %}">{{ i }}:00 - {{ j }}:00</a>
+                </div>
+            {% endif %}
         {% empty %}
             <p>No hay horarios disponibles para esta fecha.</p>
         {% endfor %}
     </div>
+</div>
 {% endblock %}

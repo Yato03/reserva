@@ -34,28 +34,56 @@
             {% endif %}
             {% if user.is_authenticated %}
                 <li>
-                    <a class="icon-container" href="{% url 'listar_espacios_comunes' %}">
-                        <img class="icon" src="{% static 'images/espacios.svg' %}">
-                        <p class="icon-text">Espacios</p>
-                    </a>
+                    {% if 'espacios' in request.path and not 'espacios/reservas' in request.path %}
+                        <a class="icon-container active" href="{% url 'listar_espacios_comunes' %}">
+                            <img class="icon" src="{% static 'images/espacios.svg' %}">
+                            <p class="icon-text">Espacios</p>
+                        </a>
+                    {% else %}
+                        <a class="icon-container" href="{% url 'listar_espacios_comunes' %}">
+                            <img class="icon" src="{% static 'images/espacios.svg' %}">
+                            <p class="icon-text">Espacios</p>
+                        </a>
+                    {% endif %}
                 </li>
                 <li>
-                    <a class="icon-container" href="{% url 'mis_reservas' %}">
-                        <img class="icon" src="{% static 'images/reservas.svg' %}">
-                        <p class="icon-text">Reservas</p>
-                    </a>
+                    {% if 'reservas' in request.path %}
+                        <a class="icon-container active" href="{% url 'mis_reservas' %}">
+                            <img class="icon" src="{% static 'images/reservas.svg' %}">
+                            <p class="icon-text">Reservas</p>
+                        </a>
+                    {% else %}
+                        <a class="icon-container" href="{% url 'mis_reservas' %}">
+                            <img class="icon" src="{% static 'images/reservas.svg' %}">
+                            <p class="icon-text">Reservas</p>
+                        </a>
+                    {% endif %}
                 </li>
                 <li>
-                    <a class="icon-container" href="{% url 'mis_notificaciones' %}">
-                        <img class="icon" src="{% static 'images/notifications.svg' %}">
-                        <p class="icon-text">Notificaciones</p>
-                    </a>
+                    {% if 'notificaciones' in request.path %}
+                        <a class="icon-container active" href="{% url 'mis_notificaciones' %}">
+                            <img class="icon" src="{% static 'images/notifications.svg' %}">
+                            <p class="icon-text">Notificaciones</p>
+                        </a>
+                    {% else %}
+                        <a class="icon-container" href="{% url 'mis_notificaciones' %}">
+                            <img class="icon" src="{% static 'images/notifications.svg' %}">
+                            <p class="icon-text">Notificaciones</p>
+                        </a>
+                    {% endif %}
                 </li>
                 <li>
-                    <a class="icon-container" href="/usuario/perfil">
-                        <img class="icon" src="{% static 'images/profile.svg' %}">
-                        <p class="icon-text">Mis datos</p>
-                    </a>
+                    {% if request.path == '/usuario/perfil/' %}
+                        <a class="icon-container active" href="/usuario/perfil">
+                            <img class="icon" src="{% static 'images/profile.svg' %}">
+                            <p class="icon-text">Mis datos</p>
+                        </a>
+                    {% else %}
+                        <a class="icon-container" href="/usuario/perfil">
+                            <img class="icon" src="{% static 'images/profile.svg' %}">
+                            <p class="icon-text">Mis datos</p>
+                        </a>
+                    {% endif %}
                 </li>
                 <li>
                     <a class="icon-container" href="/usuario/logout">

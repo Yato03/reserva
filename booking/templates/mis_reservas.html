@@ -1,18 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Mis reservas</h1>
-    <ul>
-        {% for reserva in reservas %}
-            <li style="background:gray;">
-                <h2>{{ reserva.espacio.nombre }}</h2>
-                <p><strong>Fecha:</strong> {{ reserva.fecha_inicio }}</p>
-                <p><strong>Hora de inicio:</strong> {{ reserva.fecha_inicio }}</p>
-                <p><strong>Hora de fin:</strong> {{ reserva.fecha_fin }}</p>
-                <p><strong>Estado:</strong> {{ reserva.estado }}</p>
-                {% if reserva.estado == 'POR_CONFIRMAR' %}
-                    <a href="{% url 'cancelar_reserva' reserva.id %}">Cancelar</a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+<div class="reservas-grid">
+    {% for reserva in reservas %}
+        <div class="reserva-card">
+            <h2>{{ reserva.espacio_comun.nombre }}</h2>
+            <p><strong>Fecha:</strong> {{ reserva.fecha_inicio|date:"d/m/Y" }}</p>
+            <p><strong>Hora de inicio:</strong> {{ reserva.fecha_inicio|time:"H:i" }}</p>
+            <p><strong>Hora de fin:</strong> {{ reserva.fecha_fin|time:"H:i" }}</p>
+            <p><strong>Estado:</strong> {{ reserva.estado }}</p>
+            {% if reserva.estado == 'POR_CONFIRMAR' %}
+                <a href="{% url 'cancelar_reserva' reserva.id %}">
+                    <button class="button cancelar">Cancelar</button>
+                </a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}
