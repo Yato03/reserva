@@ -8,6 +8,8 @@ from django.http import Http404
 from usuario.models import Notificacion, Usuario
 from booking.views import crear_notificacion
 from usuario.views import es_usuario
+import locale
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 # Create your views here.
 
@@ -73,15 +75,18 @@ def reserva_espacio_comun(request, pk, month, year):
     # Generar el calendario del mes actual
     cal = calendar.Calendar()
     dias_mes = cal.itermonthdates(anio, mes)
+    hoy = datetime.now().date()
 
     calendario_dias = [
         {
             'fecha': dia, 
-            'color': fechas_colores.get(dia, 'blanco'),
+            'color':  'gris' if dia < hoy or dia.month != mes else fechas_colores.get(dia, 'verde'),
             'weekday': dia.weekday()
         } 
         for dia in dias_mes
     ]
+
+    nombre_mes = calendar.month_name[mes]
 
     return render(request, 'seleccion_reserva.html', {
         'calendario_dias': calendario_dias,
@@ -91,7 +96,9 @@ def reserva_espacio_comun(request, pk, month, year):
         'anio_anterior': anio - 1 if mes == 1 else anio,
         'mes_siguiente': mes + 1 if mes < 12 else 1,
         'anio_siguiente': anio + 1 if mes == 12 else anio,
-        'espacio': espacio_comun
+        'espacio': espacio_comun,
+        'hoy': hoy,
+        'nombre_mes': nombre_mes.capitalize()
     })
 
 def generador_de_horas(fecha_inicio,fecha_final):

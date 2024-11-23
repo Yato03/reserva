@@ -6,11 +6,13 @@
 {% if usuario %}
     <h2>Hola, {{ usuario.user.username }}</h2>
     {% if notificaciones %}
-        <ul>
-            {% for notificacion in notificaciones %}
-                <li>{{ notificacion.mensaje }}</li>
+        <div class="notificaciones-container">
+            {% for notificacion in notificaciones reversed %}
+                <div class="notificacion-bocadillo">
+                    <p>{{ notificacion.mensaje }}</p>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>No tienes notificaciones.</p>
     {% endif %}

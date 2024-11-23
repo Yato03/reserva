@@ -4,7 +4,7 @@
 
 <p> ¿Estás seguro de reservar la hora {{ hora }} del día {{ fecha }}? </p>
 
-<form action="{% url 'reservar' espacio.id %}" method="post">
+<form action="{% url 'reservar' espacio.id %}" method="post" class="form-dia-entero">
     {% csrf_token %}
     <input type="hidden" name="dia" value="{{ dia }}">
     <input type="hidden" name="mes" value="{{ mes }}">
@@ -12,5 +12,7 @@
     <input type="hidden" name="hora" value="{{ hora }}">
     <input type="submit" value="Reservar">
 </form>
+
+<button class="button cancelar" onclick="window.history.back()">Cancelar</button>
 
 {% endblock %}

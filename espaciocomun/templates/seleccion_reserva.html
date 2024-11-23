@@ -1,15 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Calendario - {{ mes }}/{{ anio }}</h1>
+<h1>Calendario - {{ nombre_mes }} {{ anio }}</h1>
+
+<div class="leyenda">
+    <div class="leyenda-item">
+        <span class="color-box verde"></span> Día entero disponible
+    </div>
+    <div class="leyenda-item">
+        <span class="color-box naranja"></span> Parcialmente ocupado
+    </div>
+    <div class="leyenda-item">
+        <span class="color-box rojo"></span> Completamente ocupado
+    </div>
+    <div class="leyenda-item">
+        <span class="color-box gris"></span> No disponible o no pertenece al mes actual
+    </div>
+</div>
+
 <table>
     <tr>
-        <th>Lunes</th>
-        <th>Martes</th>
-        <th>Miércoles</th>
-        <th>Jueves</th>
-        <th>Viernes</th>
-        <th>Sábado</th>
-        <th>Domingo</th>
+        <th>L</th>
+        <th>M</th>
+        <th>X</th>
+        <th>J</th>
+        <th>V</th>
+        <th>S</th>
+        <th>D</th>
     </tr>
     <tr>
     {% for dia in calendario_dias %}
@@ -23,11 +39,19 @@
             {% endfor %}
         {% endif %}
         <td class="{{ dia.color }}">
-            <a href="{% url 'reservar_dia' espacio.id mes anio dia.fecha.day %}">{{ dia.fecha.day }}</a>
+            {% if dia.color == 'gris' %}
+                {{ dia.fecha.day }}
+            {% else %}
+                <a href="{% url 'reservar_dia' espacio.id mes anio dia.fecha.day %}">{{ dia.fecha.day }}</a>
+            {% endif %}
         </td>
     {% endfor %}
     </tr>
 </table>
-<a href="{% url 'reserva_espacio_comun' espacio.id mes_anterior anio_anterior %}">&lt;&lt; Mes anterior</a>
-<a href="{% url 'reserva_espacio_comun' espacio.id mes_siguiente anio_siguiente %}">Mes siguiente &gt;&gt;</a>
+<div class="botones-mes">
+    {% if not mes == hoy.month %}
+        <a href="{% url 'reserva_espacio_comun' espacio.id mes_anterior anio_anterior %}" class="button mes">Mes anterior</a>
+    {% endif %}
+    <a href="{% url 'reserva_espacio_comun' espacio.id mes_siguiente anio_siguiente %}" class="button mes">Mes siguiente</a>
+</div>
 {% endblock %}
