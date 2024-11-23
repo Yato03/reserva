@@ -824,6 +824,14 @@ form input[type="submit"]:hover {
     margin-top: 20px;
 }
 
+.perfil-container-2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    gap: 50px;
+}
+
 /* Estilo para la tarjeta del perfil */
 .perfil-card {
     background-color: #f0f0f0;
@@ -833,7 +841,9 @@ form input[type="submit"]:hover {
     text-align: center;
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Estilo para la lista de información del perfil */

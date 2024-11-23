@@ -26,7 +26,7 @@ class RegisterForm(forms.ModelForm):
 
         labels = {
             'dni': 'DNI',
-            'telefono': 'Número de Teléfono',
+            'telefono': 'Número de Teléfono (opcional)',
         }
 
     def clean(self):

@@ -32,7 +32,9 @@ class Usuario(models.Model):
             MinLengthValidator(8, 'El teléfono debe tener al menos 8 dígitos.'),
             MaxLengthValidator(15, 'El teléfono no debe exceder los 15 dígitos.')
         ],
-        verbose_name="Número de Teléfono"
+        verbose_name="Número de Teléfono",
+        blank=True, 
+        null=True
     )
 
     def __str__(self):
