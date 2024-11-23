@@ -591,6 +591,15 @@ form {
     margin-bottom: 20px;
 }
 
+form.edicion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+
 .form-dia-entero {
     display: flex;
     justify-content: center;
@@ -832,6 +841,12 @@ form input[type="submit"]:hover {
     gap: 50px;
 }
 
+@media (max-aspect-ratio: 1/1) {
+    .perfil-container-2 {
+        flex-direction: column;
+    }
+}
+
 /* Estilo para la tarjeta del perfil */
 .perfil-card {
     background-color: #f0f0f0;
@@ -844,6 +859,7 @@ form input[type="submit"]:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 /* Estilo para la lista de información del perfil */
