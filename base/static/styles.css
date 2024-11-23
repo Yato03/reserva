@@ -15,9 +15,6 @@ main {
     justify-content: center;
 }
 
-table, th, td {
-    border: 1px solid black;
-}
 
 .content-wrapper {
     display: flex;
@@ -145,27 +142,50 @@ nav img {
 
 form {
     margin-top: 20px;
+    width:35%;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    form {
+        width: 80%;
+    }
 }
 
 form label {
     display: block;
     margin-top: 10px;
+    font-weight: bold;
+    color: #333;
 }
 
 form input[type="text"], form input[type="password"] {
-    width: 40%;
-    padding: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 2px solid #b1b1b1b1;
+    border-radius: 12px;
+    box-sizing: border-box;
 }
 
-form input[type="submit"] {
-    background-color: #333;
+form .button-container {
+    text-align: center;
+}
+
+form button[type="submit"] {
+    background-color: #00BF1D;
     border: none;
     color: white;
-    padding: 5px 10px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: 60px;
+    width: 160px;
 }
 
-form input[type="submit"]:hover {
-    background-color: #444;
+form button[type="submit"]:hover {
+    background-color: #007e13;
 }
 
 from div {
@@ -180,6 +200,35 @@ from div {
     padding: 0;
     margin-bottom: 10px;
 }
+
+.register-container {
+    text-align: center;
+    margin-top: 20px;
+    width: 80%;
+}
+
+.register-container h2 {
+    margin-bottom: 10px;
+}
+
+.register-container button {
+    background-color: #0091ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: 60px;
+    width: 160px;
+}
+
+.register-container button:hover {
+    background-color: #0056b3;
+}
+
+
+
 
 .post {
     background-color: white;
@@ -230,13 +279,6 @@ from div {
 }
 
 
-.rojo {
-    background-color: #fd1b1b;
-}
-
-.naranja {
-    background-color: #ff8c00;
-}
 
 .button {
     background-color: #00BF1D;
@@ -267,11 +309,48 @@ from div {
 }
 
 .button.register {
-    background-color: #00AAFF;
+    background-color: #0091ff;
 }
 
 .button.register:hover {
-    background-color: #0078b4;
+    background-color: #0056b3;
+}
+
+.button.reserva {
+    height: 100px;
+    width: 240px;
+    background-color: #00BF1D;
+    font-size: 2rem;
+}
+
+.button.reserva:hover {
+    background-color: #007e13;
+}
+
+.button.volver {
+    height: 100px;
+    width: 240px;
+    background-color: #0091ff;
+    font-size: 2rem;
+}
+
+.button.volver:hover {
+    background-color: #0056b3;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 50%;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .botones {
+        width: 80%;
+        flex-direction: column;
+    }
 }
 
 h1 {
@@ -319,12 +398,14 @@ h2 {
 }
 
 .espacio:hover {
-    background-color: #e0e0e0;
+    background-color: #cfcfcf;
 }
 
 .espacio img {
     width: 100%;
     height: auto;
+    max-height: 60vh;
+    object-fit: cover;
 }
 
 .espacio h3 {
@@ -347,6 +428,7 @@ h2 {
 .detalle-izquierda {
     flex: 1;
     margin-left: 10%;
+    margin-right: 15px;
 }
 
 .detalle-derecha {
@@ -364,6 +446,8 @@ h2 {
 .imagen-container img {
     width: 100%;
     height: auto;
+    max-height: 40vh;
+    object-fit: cover;
 }
 
 button.prev, button.next {
@@ -385,7 +469,7 @@ button.next {
     right: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-aspect-ratio: 1/1) {
     .detalle-espacio {
         flex-direction: column;
         align-items: center;
@@ -402,4 +486,395 @@ button.next {
         max-width: 300px;
     }
 
+}
+
+/* Estilo para la tabla del calendario */
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 2px solid #000000;
+    padding: 10px;
+    text-align: center; 
+    font-size: 1.2rem;
+}
+
+th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+td a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+td.gris {
+    padding: 15px;
+    background-color: #cacaca;
+}
+
+td.verde {
+    background-color: #00df21;
+    color: #000000;
+}
+
+td.naranja {
+    background-color: #ffd000;
+    color: #000000;
+}
+
+td.rojo {
+    background-color: #d80000;
+    color: #000000;
+}
+
+td:hover {
+    filter: brightness(0.7);
+}
+
+td.gris:hover {
+    filter: brightness(1);
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.button.mes {
+    background-color: #007bff;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    font-size: 1.5rem;
+    height: 50px;
+}
+
+.button.mes:hover {
+    background-color: #0056b3;
+}
+
+.botones-mes {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+/* Estilo para el contenedor principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo para los formularios */
+form {
+    margin-bottom: 20px;
+}
+
+.form-dia-entero {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+form input[type="submit"] {
+    background-color: #007bff;
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para la cuadrícula de horas */
+.horas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 10px; /* Espacio entre los elementos */
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Estilo para los bloques de horas */
+.horas-grid div {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+.horas-grid div a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.horas-grid div.rojo {
+    background-color: #d80000;
+    color: #ffffff;
+}
+
+.horas-grid div.verde {
+    background-color: #00df21;
+    color: #000000;
+}
+
+.horas-grid div.rojo:hover,
+.horas-grid div.verde:hover {
+    filter: brightness(0.8);
+}
+
+
+/* Estilo para la leyenda de colores */
+
+.leyenda {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.color-box.verde {
+    background-color: #00df21;
+}
+
+.color-box.naranja {
+    background-color: #ffd000;
+}
+
+.color-box.rojo {
+    background-color: #d80000;
+}
+
+.color-box.gris {
+    background-color: #cacaca;
+}
+
+/* boton para cancelar resreva y vovlera atras*/
+
+.button.cancelar {
+    background-color: #d33732;
+    border: none;
+    color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 105px;
+    height: 38px;
+}
+
+.button.cancelar:hover {
+    background-color: #a82520;
+}
+
+/* Estilo para el contenedor de las reservas */
+.reservas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas en PC */
+    gap: 10px; /* Espacio entre columnas y filas */
+    max-height: 90%; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Hacer la lista scrolleable */
+    padding: 10px;
+}
+
+.reserva-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 2px solid #b1b1b1;
+    border-radius:15px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+@media (max-aspect-ratio: 9/10) {
+    .reservas-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Estilo para las tarjetas de reservas */
+
+.reserva-card h2 {
+    width: 90%;
+}
+
+.reserva-card p {
+    margin: 10px 0;
+}
+
+.reserva-card .button.cancelar {
+    background-color: #d33732;
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.reserva-card .button.cancelar:hover {
+    background-color: #a82520;
+}
+
+
+/* Estilo para el contenedor de notificaciones */
+.notificaciones-container {
+    max-height: 400px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Hacer la lista scrolleable */
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 90%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+/* Estilo para los bocadillos de notificaciones */
+.notificacion-bocadillo {
+    background-color: #ffffff;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 60%;
+}
+
+.notificacion-bocadillo:before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #007bff;
+}
+
+.notificacion-bocadillo p {
+    margin: 0;
+    color: #000000;
+}
+
+/* Estilo para el contenedor del perfil */
+.perfil-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Estilo para la tarjeta del perfil */
+.perfil-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 2px solid #b1b1b1;
+    border-radius:15px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Estilo para la lista de información del perfil */
+.perfil-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.perfil-card li {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+/* Estilo para el botón de cerrar sesión */
+.button.logout {
+    background-color: #d33732;
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.button.logout:hover {
+    background-color: #a82520;
+}
+
+
+/* Estilo para los enlaces activos en el nav */
+.icon-container.active, .text.active {
+    background-color: #c9c9c9;
+    color: #000000;
+
+}
+
+
+
+.icon-container.active p, .text.active p {
+    color: #000000;
 }
