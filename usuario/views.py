@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Usuario, Notificacion
+import re
 
 # Create your views here.
 
@@ -24,6 +25,30 @@ def registrar_usuario(request):
     else:
         form = RegisterForm()
     return render(request, 'registro.html', {'form': form})
+
+@login_required
+def editar_perfil(request):
+    """
+    Vista para editar el perfil del usuario autenticado.
+    """
+    try:
+        usuario = Usuario.objects.get(user=request.user)
+    except Usuario.DoesNotExist:
+        usuario = None  # Maneja el caso en el que no exista un perfil asociado
+
+    if request.method == 'POST':
+        telefono = request.POST.get('telefono')
+        usuario.telefono = telefono
+        # Validar que el teléfono tenga 9 dígitos
+        if not re.match(r'^\d{9}$', telefono):
+            print("error")
+            messages.error(request, "El teléfono debe tener 9 dígitos.")
+        else:
+            usuario.save()
+            messages.success(request, "Perfil actualizado exitosamente.")
+            return redirect('perfil')
+
+    return redirect('perfil')
 
 def login_view(request):
     """
