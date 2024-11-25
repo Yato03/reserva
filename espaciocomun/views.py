@@ -145,6 +145,11 @@ def reservar_dia(request, pk, month, year, day):
     for reserva in reservas:
         horas_ocupadas.extend(generador_de_horas(reserva.fecha_inicio, reserva.fecha_fin))
 
+    # Añadir a las horas ocupadas las horas que ya han pasado
+    horas_pasadas = []
+    if datetime(anio, mes, dia).date() == datetime.now().date():
+        horas_pasadas.extend([hora for hora in range(9, datetime.now().hour)])
+
     horas_rango = [(hora, hora+1) for hora in range(9, 21)]
 
     fecha = f"{anio}-{mes}-{dia}"
@@ -159,6 +164,7 @@ def reservar_dia(request, pk, month, year, day):
         'reservas': reservas,
         'espacio': espacio,
         'horas_ocupadas': horas_ocupadas,
+        'horas_pasadas': horas_pasadas,
         'horas_rango': horas_rango,
         'dia_libre': dia_libre
     })
