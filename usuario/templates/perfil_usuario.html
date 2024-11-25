@@ -28,7 +28,7 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <form action="{% url 'editar_perfil' %}" method="post">
+            <form action="{% url 'editar_perfil' %}" method="post" class="edicion">
                 {% csrf_token %}
                 <label for="telefono">Teléfono:</label>
                 <input type="text" name="telefono" id="telefono" value="{{ usuario.telefono }}">
