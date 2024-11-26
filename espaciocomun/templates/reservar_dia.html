@@ -28,6 +28,10 @@
                 <div class="rojo">
                     <a>{{ i }}:00 - {{ j }}:00</a>
                 </div>
+            {% elif i in horas_pasadas %}
+                <div class="gris">
+                    <a>{{ i }}:00 - {{ j }}:00</a>
+                </div>
             {% else %}
                 <div class="verde">
                     <a href="{% url 'reservar_hora' espacio.id mes anio dia i %}">{{ i }}:00 - {{ j }}:00</a>

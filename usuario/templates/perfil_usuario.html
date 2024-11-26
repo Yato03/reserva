@@ -2,19 +2,40 @@
 {% block content %}
 <div class="perfil-container">
     <h1>Perfil de {{ request.user.username }}</h1>
-    <div class="perfil-card">
-        <ul>
-            <li><strong>DNI:</strong> {{ usuario.dni }}</li>
-            {% if usuario %}
-                <li><strong>Rol:</strong> {{ usuario.get_rol_display }}</li>
-                <li><strong>Teléfono:</strong> {{ usuario.telefono }}</li>
-            {% else %}
-                <li>No hay información adicional disponible para este usuario.</li>
+    <div class="perfil-container-2">
+        <div class="perfil-card">
+            <ul>
+                <li><strong>DNI:</strong> {{ usuario.dni }}</li>
+                {% if usuario %}
+                    <li><strong>Rol:</strong> {{ usuario.get_rol_display }}</li>
+                    <li><strong>Teléfono:</strong> {{ usuario.telefono }}</li>
+                {% else %}
+                    <li>No hay información adicional disponible para este usuario.</li>
+                {% endif %}
+            </ul>
+            <a href="{% url 'logout' %}">
+                <button class="button logout">Cerrar sesión</button>
+            </a>
+        </div>
+    
+        <div class="perfil-card">
+            <h2>Editar perfil</h2>
+            <!-- Errores -->
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
             {% endif %}
-        </ul>
-        <a href="{% url 'logout' %}">
-            <button class="button logout">Cerrar sesión</button>
-        </a>
+            <form action="{% url 'editar_perfil' %}" method="post" class="edicion">
+                {% csrf_token %}
+                <label for="telefono">Teléfono:</label>
+                <input type="text" name="telefono" id="telefono" value="{{ usuario.telefono }}">
+                <button type="submit" class="button">Guardar cambios</button>
+            </form>
+        </div>
     </div>
+    
 </div>
 {% endblock %}
