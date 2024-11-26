@@ -660,6 +660,11 @@ form input[type="submit"]:hover {
     color: #000000;
 }
 
+.horas-grid div.gris {
+    background-color: #cacaca;
+    color: #000000;
+}
+
 .horas-grid div.rojo:hover,
 .horas-grid div.verde:hover {
     filter: brightness(0.8);
