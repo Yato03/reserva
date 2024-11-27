@@ -30,7 +30,10 @@
             </li>
             {% endif %}
             {% if user.is_superuser %}
-                <li><a class="text" href="/admin/">Panel de administración</a></li>
+                <li><a class="icon-container" href="/admin/">
+                    <img class="icon" src="{% static 'images/admin-tools.svg' %}">
+                    <p class="icon-text">Admin</p>
+                </a></li>
             {% endif %}
             {% if user.is_authenticated %}
                 <li>
